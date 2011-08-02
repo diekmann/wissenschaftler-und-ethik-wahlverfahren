@@ -1,0 +1,7 @@
+Buckley Rep 39
+Ottinger Dem 37
+Goodel Rep linker Flügel 24
+
+Buckley: Buckley > Goodel > Ottinger
+Ottinger: Ottinger > Goodel > Buckles
+Goodel: Goodel > Ottinger > Buckley
