@@ -1,0 +1,15 @@
+*.aux
+*.log
+*.out
+praesentation.pdf
+*.synctex.gz
+*.blg
+*.bbl
+*.dvi
+*.idx
+*.pdf
+*.toc
+*.nav
+*.snm
+*.vrb
+

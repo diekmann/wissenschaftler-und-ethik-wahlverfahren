@@ -1,0 +1,89 @@
+%All definitions for drwaing graphs are put in here
+\usepackage{tikz}
+
+
+\usepackage{tkz-graph}
+\usetikzlibrary{arrows}
+\usetikzlibrary{fit}
+\usetikzlibrary{shapes,fit}
+%nice vertex colors and no confilcts with edges of different colors
+ \tikzstyle{VertexStyle} = [shape = circle,
+							draw = black, %!50
+							fill = black!10,
+							inner sep = 2pt,
+							outer sep = 0.5pt,
+							minimum size = 6mm,
+							line width = 1pt]
+ \SetUpEdge[lw         = 1pt,
+            color      = black,
+            labelstyle = {sloped, text=black, fill=white}]
+
+
+\tikzset
+{
+	ComponentStyle/.style =
+	{
+		% -- shape properties --
+		shape = ellipse,							% shape
+%		rounded corners	= 1mm,					% kind of corner (and radius of the roundness)
+%		minimum height	= 0.15\textwidth,		% | minimum size of the node
+%		minimum width	= 0.9\textwidth,		% |
+%		minimum size	= 4.5mm,				%
+%		rotate			= 0,					% angle of rotation
+		scale			= 1.0,					% scaling factor
+		thick,									% thickness of the border
+		%
+		% -- colours properties --
+		% filling: [ trasparent | monocolored | shaded]; decomment what you prefer
+%		%										% transparent (all commented)
+%		fill			= black!30,				% monocolored
+%		top color		= white,				% | filling of the node
+%		bottom color	= red!50!black!20,		% |
+%		text			= black,				% colour of the fonts
+		draw			= red,				% colour of the border
+		%
+		% -- fonts --
+%		font			= \scriptsize,				% shape of the font (or dimension, like \tiny)
+%		text centered,							% text alignment [text centered | text badly centered | text justified | text ragged | text badly ragged]
+%		text height		= 1mm,					% ! minimum size of the text	% NOT WORKING
+%		text depth		= 1mm,					% !
+		inner xsep		= 0mm,					% minimum distance between text and borders along x dimension
+		inner ysep		= 0mm					% minimum distance between text and borders along y dimension
+	}
+}
+
+%get possibility to draw on background to highlight certain edges without overwriting their weights
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+\tikzstyle{selected Edge} = [draw,line width=5pt,-,red!50]
+\tikzstyle{selected Vertex} = [VertexStyle, fill=red!24]
+
+%other header tings I did
+\usepackage{listings}
+\lstset{% general command to set parameter(s)
+basicstyle=\footnotesize\color{black} % print whole listing small
+backgroundcolor=\color{light-gray},
+numbers=none,
+captionpos=b,
+tabsize=4,
+breaklines=true,
+frame=single,
+keywordstyle=\color{violet}\bfseries,
+commentstyle=\color{green},
+stringstyle=\color{blue},
+showstringspaces=false
+}
+\definecolor{light-gray}{gray}{0.95}
+
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+
+\usepackage{alltt}
+\newenvironment{myindentpar}[1]%
+{\begin{list}{}%
+         {\setlength{\leftmargin}{#1}}%
+         \item[]%
+}
+{\end{list}}

@@ -1,0 +1,362 @@
+% Begin of the document
+% Comments begins with ``%''
+%\documentclass[12pt,a4paper]{article}
+%\documentclass[conference, a4paper, 10pt, twocolumn]{IEEEtran}
+%\documentclass{IEEEtran-modified}
+\documentclass[BCOR5mm,DIV12,a4paper,10pt]{scrartcl}
+
+\usepackage[T1]{fontenc}
+
+% Increase tex widht and heigh by 4cm
+%\addtolength{\textwidth}{4cm} % maybe 3 might read better
+%\addtolength{\oddsidemargin}{-2.3cm}
+%\addtolength{\textheight}{4cm}
+%\addtolength{\topmargin}{-1cm}
+
+\addtolength{\parskip}{\baselineskip}
+\setlength{\parindent}{0pt}
+
+
+% Following packages are included:
+\usepackage[pdfborder={0,0,0}]{hyperref} % clickable links but no border around them
+\usepackage{cite}
+\usepackage{url}
+\usepackage{pgf}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+%\usepackage[shortend]{algorithm2e}
+\usepackage{multicol}
+\usepackage{csquotes}
+\usepackage[ngerman]{babel}
+
+
+\usepackage{simpsons}  % Fuck Yeah!
+\usepackage{bbding}
+
+\usepackage{wasysym} % smiley
+% uncomment if packages above are not available
+%\newcommand{\smiley}{;)}
+%\newcommand{\Burns}{(Burns)}
+
+
+%colored headlines
+\definecolor{DarkBlue}{rgb}{0.1, 0.1, 0.55}
+\addtokomafont{sectioning}{\color{DarkBlue}}
+            
+\input{my_header}
+
+% allocate space for picutres :o)
+\renewcommand{\textfraction}{0.0}
+\renewcommand{\topfraction}{1.0}
+\renewcommand{\bottomfraction}{1.0}
+
+% defintion of so-called ``theorem environments'' (see example bellow) 
+\newtheorem{theorem}{Theorem} % 'theorem' introduces a theorem. The first
+                              %  theorem will be called ``Theorem 1''.
+                              %  The number of any subsequent theorem will be
+                              %  increased automatically
+                       
+\newtheorem{lemma}{Lemma}[section] % numbering of lemmas with regard to 
+                                   % to the section of appearance
+              
+\newtheorem{definition}[lemma]{Definition} % nubering of definitions 
+                                           % in the same way as lemmas.
+
+% ... proof envirnoment.
+%\newenvironment{proof}{\noindent\textbf{Proof}}{\mbox{}\hfill
+%    \makebox[0pt][l]{$\sqcup$}$\sqcap$\par\vspace{1ex}}
+
+%---------------------------------------------------------------
+% Begin of the main part of the document (the end of this part
+% is marked by `\end{document}').
+%
+
+\newcommand{\shell}{\texttt}
+\newcommand{\code}{\texttt}
+\begin{document}
+
+\title{%
+   {\large Seminar Wissenschaftler und Ethik -- Winter 11/12}\\[1ex]
+   Mathematik der Wahlverfahren }
+\author{Cornelius Diekmann}
+
+
+\maketitle
+%\abstract{Abstract}
+
+%Introducing the table of contents.
+%\newpage
+\tableofcontents
+
+%\newpage
+
+\section{Einführung}
+Die Theorie der Wahlsysteme beschäftigt sich damit, eine faire Möglichkeit zu finden individuelle Meinungen der Wähler in einer gesamten Kollektiventscheidung zusammenzufassen. Das folgende tagesaktuelle Beispiel zeigt, dass dies nicht immer einfach ist.
+\newline
+
+Im Jahre 2008 befand das Bundesverfassungsgericht das deutsche Wahlrecht für verfassungswidrig\footnote{Az.: 2 BvC 1/07} \cite{handelsblattverf, spiegelverf}. Im aktuellen deutschen Wahlrecht ist das Paradoxon des sogenannten negativen Stimmgewichts möglich. Dies bedeutet, dass eine Stimme für die bevorzugte Partei sich bei der finalen Sitzvergabe negativ auf die Gesamtsitze der Partei auswirken kann. Die vom Verfassungsgericht bis Juni 2011 gesetzte Frist das Wahlrecht nachzubessern konnte nicht eingehalten werden \cite{dtwahlnicheinhalt}.
+
+
+Da zum Zeitpunkt des Verfassens dieser Ausarbeitung kein gültiges Wahlrecht existiert wird bereits mit satirischem Unterton angedeutet, dass ein Wähler sich aktuell der Beihilfe zum Verfassungsbruch strafbar machen kann indem er wählen geht\cite{anstalt}.
+
+Diese Ausarbeitung stellt sich der Frage ob es überhaupt ein perfektes Wahlsystem gibt. Des Weiteren werden wünschenswerte Anforderungen an ein demokratischen Wahlsystems gestellt. Die Frage ob ein gegebenes Wahlsystem den Willen der Wähler entsprechend wiedergeben kann wird diskutiert.
+
+\section{Wahlverfahren formal}
+\label{wahlsystem}
+Um Eigenschaften von Wahlverfahren im Allgemeinen zu benennen, muss das Wahlverfahren an sich formalisiert werden. Die hier verwendete Formalisierung ist an \cite{hodge2005mathematics, bungartz} angelehnt.
+\newline
+
+Die zur Wahl stehenden Kandidaten werden mit $A, B, C, ...$ bezeichnet. Naturgemäß hat jeder Wähler gewisse Präferenzen zwischen den Kandidaten. $ A \succ B $ besagt, dass ein Wähler Kandidat $A$ gegenüber Kandidat $B$ bevorzugt. $ A \succeq B$ besagt, dass der Wähler bezüglich Kandidat $A$ und $B$ indifferent ist oder $A$ bevorzugt. Jeder vernünftige Wähler sollte eine klare und konsistente Vorstellung über seine Präferenzen haben. Dies erlaubt einem Wähler indifferent bezüglich vielen Kandidaten zu sein, jedoch wird von jedem Wähler verlangt, dass seine Präferenzen transitiv sind. Die Präferenzen eines Wählers lassen sich also als eine Rangliste aller Kandidaten darstellen. Die Notation erinnert absichtlich an das Größer- und Größer-Gleich-Zeichen damit alle Kandidaten konsistent in einer Rangordnung dargestellt werden können. Beispielsweise
+$$ B \succ A \succ C \succ P \succeq X \succeq Y \succeq Z \succ N $$
+
+Auch wenn das deutsche Wahlrecht einem Wähler nur jeweils eine Stimme für den Vertreter des Wahlkreises und eine Stimme für die Partei im Bundestag gestattet, ist eine Betrachtung der kompletten Wählerpräferenzen für eine theoretische Diskussion notwendig. Es sollte schließlich jedem Bürger gestattet sein, seine gesamte Meinung zur Wahl beizusteuern. Eine Beschränkung auf nur einen Kandidaten kann eine Kompromisslösung verhindern. In Australien und Irland können die Wähler alle Kandidaten wie genannt ordnen \cite{spektrum}.
+
+Ein Wahlverfahren ist demnach eine Funktion welche eine Menge von Individualpräferenzen -- die Stimmen der Wähler -- auf eine Kollektivpräferenz abbildet. Diese Funktion muss auf der gesamt möglichen Eingabemenge definiert sein. Es darf also keine Vorschrift\footnote{abgesehen von Transitivität} geben, die diktiert, wie zu wählen ist. Des Weiteren muss die Funktion eine sinnvolle Rangordnung als Ausgabe liefern. Dies bedeutet zunächst, dass die Kollektivpräferenz transitiv sein muss. Die Signatur eines Wahlsystems lautet also bei $n$ Wählern:
+$$ \left\{ x | x \ \mathrm{ist\ totale\ Ordnung\ auf\ Kandidaten} \right\} ^n \rightarrow \left\{ x | x \ \mathrm{ist\ totale\ Ordnung\ auf\ Kandidaten} \right\}$$
+
+\section{Wünschenswerte Eigenschaften von Wahlverfahren}
+Die bis jetzt gestellten Forderungen an ein Wahlsystem klingen mit dem gesunden Menschenverstand vereinbar. Dennoch ist das System in aktuellen Zustand alles andere als demokratisch. Ein Wahlsystem welches die Individualpräferenz eines speziellen Wählers -- genannt Diktator -- als Ausgabe liefert genügt allen bis jetzt gestellten Anforderungen. Auch ein Wahlsystem welches stets die gleiche vordefinierte Rangordnung -- unabhängig vom Wählerwillen -- liefert wäre zulässig. Diese Abschnitt beschäftigt sich mit einigen grundlegenden Anforderungen an ein \emph{demokratisches} Wahlsystem.
+\newline
+
+
+Wie bereits in der Einleitung erwähnt, ist negatives Stimmgewicht unerwünscht. Positiver formuliert sagt man:
+
+\begin{definition}
+Ein Wahlverfahren ist \emph{monoton} genau dann wenn sich eine Individualentscheidung zum Vorteil eines Kandidaten im Gesamtergebnis nicht negativ auf diesen Kandidaten auswirken kann.
+\end{definition}
+
+Die bis jetzt geforderten Eigenschaften erfüllen aber noch nicht die im Grundgesetz geforderten Ansprüche an eine Demokratie. 
+
+\begin{quote}
+\textit{Die Abgeordneten des Deutschen Bundestages werden in allgemeiner, unmittelbarer, freier, gleicher und geheimer Wahl gewählt.} \cite{ggwahlrecht}
+\end{quote}
+
+
+Die Forderung nach einer unmittelbaren Wahl scheint erfreulich, da kein kompliziertes indirektes Wahlsystem wie in den USA entstehen kann. Dennoch ist diese Forderung eine Auflage für die Ausführung der Wahl und kann in einer mathematischen Betrachtung ignoriert werden. Gleiches gilt für die geheime Wahl. \emph{Allgemein} ist eine politische Forderung die jedem Bürger der Bundesrepublik Deutschland der das 18. Lebensjahr vollendet hat das Wahlrecht zugesteht. \cite{bundestag} Auch diese Forderung kann bei einer Beschränkung auf der Suche nach einer idealen Kollektiventscheidung vernachlässigt werden, da diese Forderung primär soziale Hintergründe hat. Die Forderungen \emph{frei} und \emph{gleich} sind jedoch entscheidend für ein demokratisches Wahlverfahren. 
+
+\begin{definition}
+Ein Wahlsystem wird \emph{anonym} genannt, wenn es jeden Wähler gleich behandelt. Entsprechend wird ein Wahlsystem \emph{neutral} genannt, wenn es jeden Kandidaten gleich behandelt.
+\end{definition}
+
+Ein Wahlsystem welches anonym, neutral und monoton ist, erfüllt also die Ansprüche die das Grundgesetz stellt. Es stellt sich aber die Frage, ob ein solches System auch die Meinung der Wähler entsprechend repräsentieren kann. 
+
+
+\section{Wahlverfahren im Vergleich}
+In diesem Abschnitt werden einige Wahlverfahren vorgestellt und diskutiert, ob die entstehende Kollektiventscheidung immer den gewünschten Sieger liefert.
+
+\subsection{Absolute Mehrheit}
+Bei diesem Wahlsystem wird der Kandidat zum Sieger der Wahl erklärt, der die absolute Mehrheit aller Wähler errungen hat, also bei mehr als $50\%$ der Wähler auf Platz 1 steht.
+
+Es lässt sich leicht erkennen, dass dieses Wahlsystem nicht immer einen Sieger liefern muss. Auch sieht man, dass dieses System bei nur zwei Kandidaten immer (mindestens) einen Sieger liefert.
+
+Mathematisch gesehen ist dieses System ideal, da keine Paradoxien auftreten können. Der Wille der Wähler wird fair repräsentiert. Leider ist dieses System oft nicht anwendbar, da die Meinung der Wähler nicht zu einer klaren Mehrheit führt. May's Theorem \cite{hodge2005mathematics} besagt jedoch, dass das absolute Mehrheitsverfahren das einzig sinnvolle demokratische Verfahren für zwei Kandidaten ist.
+
+\begin{theorem}\emph{[May's Theorem]}
+In einer Zwei-Kandidaten-Wahl mit einer ungeraden Anzahl an Wählern ist das absolute Mehrheitsverfahren das einzige Wahlsystem welches sowohl anonym, neutral als auch monoton ist und die Möglichkeit eines Gleichstands ausschließt.
+\end{theorem}
+
+\begin{proof}
+Da ein Wahlsystem welches alle Kandidaten im Gleichstand auf Platz 1 setzt auch ein demokratisches Wahlsystem ist, wird ersichtlich warum kein Gleichstand bei einer ungeraden Anzahl von Wählern gefordert wird. Um May's Theorem zu beweisen, wird zuerst folgendes Lemma (I) bewiesen.
+
+
+(I) Jedes Wahlsystem für eine Zwei-Kandidatenwahl welches anonym, neutral und monoton ist, ist ein System bei dem ein Kandidat genau dann gewinnt, wenn er mindestens $q \in \mathbb{N}_0$ Stimmen erhält (Quota System).
+
+Dies lässt sich durch die geforderten Eigenschaften beweisen. Angenommen es treten die Kandidaten $A$ und $B$ zur Wahl an und $n$ Wähler $v_1$ ... $v_n$ geben ihre Stimme ab. O.B.d.A sind alle Wähler $v_i$ aufgrund der Anonymität vertauschbar. Aufgrund der Neutralität sind $A$ und $B$ vertauschbar.
+
+Das Wahlsystem muss nun bei Betrachtung von $v_1, .., v_q, q \leq n$ ein Ergebnis liefern. Die Wähler $v_1, ..., v_q$ sollen alles Wähler sein, die für $A$ gestimmt haben. Wähle $q$ so, dass das Wahlsystem für $v_1, ... v_{q-1}$ keinen Gewinner bestimmt und bei $v_1, ... v_q$ $A$ zum Sieger erklärt. $q$ kann eindeutig bestimmt werden, indem mit $q=0$ angefangen wird und bis $q=n$ getestet wird. Falls so kein $q$ gefunden werden kann, ernennt das Wahlsystem keinen Sieger und $q=n+1$, ansonsten gilt $q \leq n$. Aufgrund der Monotonie gewinnt $A$ damit genau dann die Wahl, wenn er mindestens $q$ Stimmen erhält. Damit ist $q$ das gesuchte Quota für ein Quota System. Damit ist (I) gezeigt.
+
+Ein absolutes Mehrheitssystem entsteht nun, indem $q = \lceil \frac{n}{2} \rceil$ gewählt wird. Dies ist die einzige Wahl für $q$, die einen Sieger unter Ausschluss von Gleichstand wählt. May's Theorem folgt.
+\end{proof}
+%\newline
+
+Da das absolute Mehrheitsverfahren -- abgesehen von der Wahrscheinlichkeit kein Ergebnis zu liefern -- nur wünschenswerte Eigenschaften aufweist, wird definiert:
+\begin{definition}
+Ein Wahlsystem erfüllt die absolute Mehrheitsbedingung genau dann wenn stets der Kandidat der eine absolute Mehrheit erhalten hat zu Sieger erklärt wird, falls dieser existiert.
+\end{definition}
+
+\subsection{Relative Mehrheit}
+\label{relativemehrheit}
+Dieses Wahlverfahren ernennt den Kandidaten mit den meisten Stimmen zum Sieger. Es kann als Erweiterung des absoluten Mehrheitsverfahrens betrachtet werden und erfüllt die absolute Mehrheitsbedingung. Für genau zwei Kandidaten sind die beiden Verfahren äquivalent.
+
+In den USA werden die Senatoren eines Staates durch relative Mehrheit bestimmt. %\cite{spektrum}
+
+Allerdings führt schon diese kleine Änderung bei mehr als zwei Wählern schnell zu Paradoxien. Das folgende Beispiel (Tabelle \ref{tab:wrestlerwahl}) mit 100 Stimmen zeigt ein solches Paradoxon:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{c|c}
+Stimmen & Präferenzen \\
+\hline
+35 & $ N \succ S \succ J $\\ 
+28 & $ S \succ N \succ J $ \\
+20 & $ J \succ N \succ S $ \\
+17 & $ J \succ S \succ N $ \\
+\end{tabular}
+	\caption{Zahlen angelehnt an die Wahl des Wrestlers Jesse Ventura 1998 zum Governor in Minnesota. Quelle \cite[Table 3.1]{hodge2005mathematics}.}
+	\label{tab:wrestlerwahl}
+\end{table}
+
+Mit $37\%$ ist $J$ Gewinner des absoluten Mehrheitsentscheids. Jedoch wird $J$ von $63\%$ der Wähler als der am wenigsten gewünschte Kandidat gelistet. Die Möglichkeit einen Kandidaten als Gewinner zu erklären, der von einer absoluten Mehrheit als am wenigsten bevorzugt gelistet wird, ist ein Kritikpunkt des relativen Mehrheitsentscheids. Man könnte dem Verfahren vorwerfen, es sei nicht kompromissfähig.
+
+\subsection{Borda Methode}
+Da sich der relative Mehrheitsentscheid als nicht kompromissfähig herausstellt, ist die Borda Methode eine interessante Alternative. Sie wird von vielen Mathematikern befürwortet \cite{hodge2005mathematics} und in einer ähnlichen Version beim Eurovision Song Contest eingesetzt.
+
+\begin{definition}\emph{[Borda Methode]}
+Für eine Wahl mit $n$ Kandidaten werden Punkte für jeden Kandidaten errechnet:
+\begin{itemize}
+\item Jede Erstplatzierung schreibt dem Kandidaten $n-1$ Punkte zu
+\item Jede Zweitplatzierung schreibt dem Kandidaten $n-2$ Punkte zu
+\item $\cdots$
+\item Jeder letzte Platz wird mit $0$ Punkten gewertet
+\end{itemize}
+Die resultierende Rangordnung ist die Liste der Kandidaten geordnet nach der Anzahl der erworbenen Punkte.
+\end{definition}
+
+In dem vorherigen Beispiel (Tabelle \ref{tab:wrestlerwahl}) hätten $N$ $118$ Punkte erworben, $S$ $108$ Punkte und $J$ nur $74$ Punkte. Die Rangordnung wäre also $ N \succ S \succ J $. Diese Rangordnung erscheint als gelungener Kompromiss, da eine absolute Mehrheit der Wähler $J$ nicht an erster Stelle sehen wollte. $N$ ist stets bevorzugt gegenüber $S$.
+
+Als Verbesserung der Borda Methode kann das Verfahren von Condorcet gesehen werden. ``Für die Wahl eines Präsidenten oder Parlaments ist er leider zu kompliziert, zu undurchsichtig und daher möglicherweise Misstrauen erregend. Einfachheit und Transparenz sind fundamentale Elemente eines Wahlmodus.'' \cite{spektrum}
+
+\subsection{Sequential Pairwise Voting}
+Einen anderen Weg geht das Sequential Pairwise Voting. Der absolute Mehrheitsentscheid ist das ideale Wahlsystem, das leider nicht immer anwendbar ist. Wenn die Wahl in verschiedene Unterwahlen zwischen genau zwei Kandidaten aufgeteilt wird, kann der absolute Mehrheitsentscheid für diese Unterwahlen angewandt werden. Das Sequential Pairwise Voting Verfahren ermittelt den Gewinner der Wahl anhand simulierter Zweikämpfe (absoluter Mehrheitsentscheid).
+
+Um den Gewinner der Wahl zu ermitteln, wird eine Reihenfolge der Kandidaten festgelegt. Bei $n$ Kandidaten tritt jeweils Kandidat $i$ gegen den Gewinner des Zweikampfes von $i-1$ und $i-2$ an. Das Verfahren erinnert an viele sportliche Wettkämpfe, in denen Kandidaten ihre Gegner besiegen müssen um weiter zu kommen.
+
+Im Beispiel in Tabelle \ref{tab:wrestlerwahl} fällt auf, dass in einem Zweikampf zwischen $N$ und $S$, $N$ gewinnen würde. Auch in einem Zweikampf zwischen $N$ und $J$ würde $N$ stets gewinnen. Umgekehrt würde $J$ jeden Zweikampf verlieren. Die resultierende Rangordnung nach dem Sequential Pairwise Voting ist damit $ N \succ S \succ J $.
+
+Diese Feststellung führt zu folgender Wünschenswerten Eigenschaft eines Wahlsystems.
+
+\begin{definition}\emph{[Condorcet Gewinner Kriterium]}
+Als Condorcet Gewinner wird ein Kandidat bezeichnet, der in jedem Zweikampf (ausgetragen mit absolutem Mehrheitsentscheid) gewinnen würde.
+
+Ein Wahlsystem erfüllt das Condorcet Gewinner Kriterium falls ein Condorcet Gewinner stets die Wahl gewinnt -- falls einer existiert.
+\end{definition}
+
+Das Sequential Pairwise Voting erfüllt stets das Condorcet Gewinner Kriterium. Jedoch kann man dem Verfahren seine zugrundeliegende undemokratische Einstellung vorwerfen: Wenn kein Condorcet Gewinner existiert, ist das Ergebnis der Wahl von der Reihenfolge der Kandidaten abhängig. Da die Personen die die Reihenfolge festlegen den Wahlausgang stakt beeinflussen, ist das Verfahren nicht neutral.
+
+In sportlichen Wettkämpfen kann dieser Nachteil jedoch wünschenswert sein: Die vom Veranstalter als stark eingeschätzten Kandidaten werden so positioniert, dass es für die Zuschauer stets einen ``ultimativen Showdown'' in jedem Zweikampf zu sehen gibt.
+
+Schlussendlich ist noch zu erwähnen, dass ein Versuch eine Rangordnung nur durch Zweikämpfe -- nach dem Vorbild vom Condorcet Gewinner -- zu bilden zum scheitern verurteilt ist: Falls kein Condorcet Gewinner existiert, könnte die resultierende Rangordnung zyklisch sein. \cite{spektrum}
+
+\subsection{Zusammenfassung}
+Es zeigt sich, dass keines der untersuchten Wahlsysteme die Meinung der Wähler auf demokratische Art und Weise wiedergeben kann. Tabelle \ref{tab:wahls} fasst die Eigenschaften noch einmal kurz zusammen.
+\begin{table}[ht]
+\centering
+\begin{tabular} {c |  *{6}{p{0.1\textwidth}|}}%{c|p|p|p|p|p}
+Wahlsystem & Anonym & Neutral & Monoton & Absolutes Mehrheitskritrium & Condorcet Gewinner Kriterium \\
+\hline
+Absolute Mehrheit & \Checkmark & \Checkmark & \Checkmark & \Checkmark  & \Checkmark \\ 
+Relative Mehrheit & \Checkmark & \Checkmark & \Checkmark & \Checkmark  & \XSolidBrush \\ 
+Borda Methode & \Checkmark & \Checkmark & \Checkmark & \XSolidBrush  & \XSolidBrush \\ 
+Sequential Pairwise Voting & \Checkmark & \XSolidBrush & \Checkmark & \Checkmark  & \Checkmark \\ 
+\end{tabular}
+	\caption{Wahlsysteme im Vergleich. Quelle \cite[Table 3.22]{hodge2005mathematics}.}
+	\label{tab:wahls}
+\end{table}
+
+Die Monotonie aller vorgestellten Verfahren folgt direkt aus der Monotonie der natürlichen Zahlen. Die Anonymität aus der Gleichbehandlung aller Wähler. Das Sequential Pairwise Voting erfüllt die absolute Mehrheitsbedingung, da ein Kandidat welcher eine absolute Mehrheit erringt jeden Zweikampf gewinnt und damit automatisch Condorcet Gewinner ist.
+
+\section{Aktive Wahlmanipulation}
+Wahlen lassen sich manipulieren. Dies muss allerdings nicht zwangsweise durch Wahlfälschung geschehen. Die mathematischen Schwächen eines Wahlsystems lassen sich ausnutzen, um die Wahl gültig in die gewünschte Richtung zu lenken.
+
+Dies geschah beispielsweise bei der Bundestagsnachwahl in Dresden im Jahr 2005\footnote{ aufgrund des Todes einer NPD-Direktkandidatin}. Die CDU betrieb gezielt Wähleraufklärung um unter $41 225$ Zweitstimmen zu bleiben \cite{handelsblattverf}. Eine höhere Zahl an Zweitstimmen hätte bundesweit einen Mandatverlust zur Folge. Das mögliche negative Stimmgewicht wurde bereits in der Einleitung erwähnt. Dieser Abschnitt beschäftigt sich nun mit Manipulationsansätzen für die vorgestellten Wahlverfahren.
+
+Unter einer Ideologie verstehen wir eine politische Richtung im Bezug auf die Wahl. Für die Bundestagswahl könnten mögliche Ideologien zum Beispiel links, oder rechts sein.
+\newline
+
+Um bei einem Mehrheitsentscheid beispielsweise die rechte Ideologie zu schwächen, kann es hilfreich sein, eine neue rechte Partei ins Spiel zu bringen. Was als erstes gegenintuitiv erscheint, erweist sich bei genauerer Betrachtung als sehr effizient. Da jede Stimme die die neue rechte Partei erwirbt sehr wahrscheinlich von bestehenden rechten Parteien abgezogen wird, erreichen alle rechten Parteien in der Summe nur ein Mittelmaß. Im deutschen Wahlrecht wäre es sogar möglich, den Einzug aller rechten Parteien in den Bundestag zu verhindern, indem die Stimmen sich unter den rechten Parteien so aufteilen, dass jede Partei unter der $5\%$ Hürde bleibt.
+\newline
+
+Bei der Borda Methode kann eine Ideologie stärker im Gesamtergebnis repräsentiert werden, indem mehr Parteien für eine Ideologie ins Spiel gebrach werden. Außerdem erlaubt die Methode taktisches Wählen, bei dem die Wähler den direkten Konkurrenten ihres Wunschkandidaten an die letzte Stelle ihrer Rangliste setzen, unabhängig von ihren ehrlichen Präferenzen \cite{spektrum}.
+\newline
+
+Das Sequential Pairwise Voting ist -- wie bereits erwähnt -- stark durch die Festlegung der Kandidatenreihenfolge manipulierbar.
+\newline
+
+ 
+Es stellt sich die Frage, ob es ein nicht manipulierbares Wahlsystem gibt. Allgemein würden wir eine Manipulation wie folgt erkennen: Angenommen es gilt im Ergebnis der Wahl $A \succ B$. $A$ muss einen echt besseren Rang als $B$ erhalten, jedoch müssen $A$ und $B$ nicht direkt aufeinander folgen. Wenn die gleiche Wahl noch einmal abgehalten werden würde und alle Wähler ihre Meinung bezüglich $A$ und $B$ relativ zueinander beibehalten, dann darf sich auch das Endergebnis bezüglich $A$ und $B$ nicht ändern. Da $A$ und $B$ allgemeine Kandidaten sind, verhindert diese Forderung, dass ein anderer Kandidat die Wahl verzerren kann. Dieses Eigenschaft wird als \emph{Unabhängigkeit irrelevanter Alternativen} bezeichnet.
+
+
+\section{Arrow's Unmöglichkeitssatz}
+Kenneth Arrow, Wirtschaftswissenschaftler an der Universität Stanford (Kalifornien) erhielt 1972 den Nobelpreis der Wirtschaftswissenschaften für seinen Unmöglichkeitssatz. Sein Satz beantwortet die Frage, ob es ein ideales Wahlsystem gibt und welche Eigenschaft dieses System hat. Entgegen der Bezeichnung ``Unmöglichkeitssatz'' existiert ein solches Verfahren und im Beweisverlauf wird eine Eigenschaft besonders klar. 
+
+Arrow stellt dafür $4$ Anforderungen an ein Wahlsystem
+\begin{enumerate}
+\item \label{a-1} Es handelt sich um ein Wahlsystem wie in Abschnitt \ref{wahlsystem} definiert. Die gesuchte Abbildung bildet also transitive Ranglisten auf transitive Ranglisten ab.
+\item \label{a-w-i} Alle transitiven Individualentscheidungen müssen zulässig sein.
+\item \label{a-3} Wenn alle (!!) Wähler $A \succ B$ wählen, muss auch in der Kollektivrangliste $A \succ B$ gelten.
+\item \label{a-4} Die Unabhängigkeit irrelevanter Alternativen gilt.
+\end{enumerate}
+
+Anforderung \ref{a-1} und \ref{a-w-i} entsprechen genau den in Abschnitt \ref{wahlsystem} geforderten Bedingungen für ein Wahlsystem. Anforderung \ref{a-3} scheint sehr schwach zu sein, da dieser unwahrscheinliche Fall bei größeren Wahlen wohl nie eintreten wird. Einzig \ref{a-4} -- die Forderung nicht manipulierbar zu sein -- erscheint sehr stark zu sein.
+
+Diese $4$ unscheinbar wirkenden Forderungen führen zu einem eindeutigen Ergebnis: Im resultierenden Wahlsystem gibt es einen Wähler, dessen Individualpräferenzen eins zu eins als Kollektiventscheidung übernommen werden. Diesen Wähler werden wir im folgenden Diktator nennen. Arrow's Satz sagt jedoch nicht, dass der Diktator vor der Wahl bereits feststeht. Der Diktator kann -- abhängig vom verwendeten Wahlverfahren -- abhängig von der Wahl der Wähler sein.
+
+Dennoch ist die Existenz eines Diktators eine grobe Verletzung der Anonymitätsbedingung für demokratische Wahlen. Arrow's Satz sagt also nicht, dass ein demokratisches Wahlverfahren unmöglich ist. Es besagt nur, dass ein nicht manipulierbares System das jedem Wähler die Freiheit lässt seine Meinung frei zu äußern, im Gesamtergebnis der Wahl einer Diktatur ähnelt.
+
+Viele Entscheidungen fordern ein absolutes Vorgehen. Dies bedeutet, dass Kompromisslösungen für viele Probleme nicht existieren. Die Euro-Krise fordert beispielsweise Handlungen der Politik bezogen auf Griechenland. Jedoch bestehen nur wenige Handlungsmöglichkeiten: Eine kontrollierte Staatsinsolvenz Griechenlands, die Auflösung der Währungsunion, mehr Garantien durch staatliche Kredite und die sogenannten Euro-Bonds. Diese Wahl der Möglichkeiten erhebt nicht den Anspruch vollständig zu sein. Dennoch wird Eines an diesen Beispielen klar ersichtlich: Es gibt keine Kompromisslösung! Eine der Handlungsmöglichkeiten muss komplett durchgeführt werden. Ein moderater Kompromissvorschlag der mehrere Möglichkeiten kombiniert, aber nur ansatzweise ausführt, ist keine Lösung. Trotz gespaltener Meinung der Bevölkerung und Politik muss sich also eine Möglichkeit durchsetzten. Diese Möglichkeit ähnelt Arrow's Diktator.
+
+Der Satz von Arrow besagt also nicht, dass Demokratie nicht funktionieren kann, er besagt nur, dass ein perfektes mathematisches Wahlverfahren dafür nicht existiert. Die Mathematik erlaubt es also, klar ihre eigenen Grenzen abzustecken. Ein bewährtes Sprichwort besagt\footnote{Der Ursprung des Sprichworts ist mir leider unbekannt, dennoch treffe ich das Sprichwort bevorzugt in der Hacker-Szene an}, man solle nicht versuchen technische Lösungen für soziale Probleme zu finden. Das ethische Problem einer Kollektiven Meinungsfindung wird damit auf die ethische Ebene gehoben und ist somit nicht mehr von dem Problem an sich unabhängig.
+
+Eine technische Lösung, um Wähler davon abzuhalten strategisch anstatt ehrlich zu wählen, ist also auch ein unzufrieden stellender Ansatz. Der Satz von Gibbard und Satterthwaite bestätigt außerdem die Ausweglosigkeit dieser Aufgabe: 
+\begin{quote}
+\textit{Für mehr als zwei Kandidaten gibt es keinen Wahlmodus, bei dem das optimale Verhalten eines Wählers nicht durch strategische Überlegungen bestimmt wäre - abgesehen von Arrows Diktatur.}\cite{spektrum}
+\end{quote}
+
+
+\section{Wahlverfahren die Arrow meiden}
+Um dennoch ein demokratisches Wahlverfahren zu finden, muss mindestens eine Bedingung von Arrow's Satz absichtlich verletzt werden. Damit ist die Möglichkeit gegeben, ein Wahlverfahren zu finden, welches keinen Diktator hervorbringt.
+Arrow's Satz ist eine Implikation deren Umkehrung i.A. nicht gilt. Ein Wahlsystem welches also Arrow's Bedingungen verletzt, muss nicht zwangsweise dikatorfrei sein.
+
+Bei Betrachtung der $4$ Arrow Bedingungen stellt sich die Frage, auf welche dieser wünschenswerten Eigenschaften eine Demokratie am ehesten verzichten kann. 
+
+\subsection{Approval Voting}
+Beim Approval Voting wird Arrow's Bedingung \ref{a-w-i} verletzt. Das Wahlverfahren ist wie folgt definiert:
+\begin{definition}\emph{[Approval Voting]}
+Jeder Wähler erstellt eine Rangordnung. In dieser Rangordnung muss ``$\succ$'' genau einmal vorkommen. Der Gewinner wird per relativen Mehrheitsentscheid festgestellt.
+\end{definition}
+
+Auf den ersten Blick wirkt dieses Verfahren alles andere als optimal: Der Wähler wird bei seinen Wahlmöglichkeiten eingeschränkt und ein relativer Mehrheitsentscheid liegt vor. Doch der erste Eindruck täuscht!
+
+Das Wahlverfahren lässt sich auch wie folgt beschreiben: Jeder Wähler bekommt einen Wahlschein auf dem alle Kandidaten gelistet sind. Der Wähler macht Kreuzchen bei jedem Kandidaten der für ihn akzeptabel wäre. Dies erklärt den Ursprung des Namens Approval Voting. Dieses Verfahren erlaubt dem Wähler bereits mehr Freiheiten, als das Genau-Eine-Stimme-Verfahren bei der Wahl der Abgeordneten in den deutschen Bundestag.
+
+Es stellt sich nun die Frage, ob bei dem Mehrheitsentscheid wie in Abschnitt \ref{relativemehrheit} ein Kandidat gewinnen kann, der von der absoluten Mehrheit der Wähler als am wenigsten geeignet gewertet wurde. Wenn jeder Wähler nur für genau einen Kandidaten stimmt, degeneriert das Verfahren gesamte Verfahren zu einem relativen Mehrheitsentscheid, mit allen seinen Schwächen und Stärken.
+
+
+Jedoch, wenn ein Großteil der Wähler ehrlich die Kandidaten ankreuzen, die sie für akzeptabel befinden, unterscheidet sich das Verfahren fundamental. Ein Kandidat $X$ der von einer kompromissfähigen absoluten Mehrheit als am wenigsten geeignet befunden wird, kann keine absolute Mehrheit erringen.
+\begin{proof}[``Beweis''.]
+Eine absolute Mehrheit der Wähler hat $X$ demnach nicht angekreuzt. Diese Wählermenge hat jedoch mindestens einen anderen Kandidaten angekreuzt. Wenn nur ein weiterer Kandidat zur Wahl stand ist genau dieser der Gewinner. Für mehr als zwei Kandidaten gilt: Gegeben sei eine Partitionierung der Wähler in zwei Ideologien\footnote{Mit $|I_0|$ wird die Anzahl der Wähler die $I_0$ angehört bezeichnet.} $I_U$ und $I_X$, mit $I_X$ der Meinung ``$X$ sei ein guter Kandidat''. $I_U$ sei die Vereinigung der Meinungen der Wähler. Es gilt $I_X \subset I_U$ und $|I_X| < \frac{1}{2} |I_U|$. Es stellt sich nun die Frage ob $I_U$ kompromissbereit ist. Hier endet der mathematische Beweis und eine ethische Betrachtung wird ins Spiel gebracht: Wenn $I_U$ kompromissbereit ist, so sollte sich in $I_U$ ein Kandidat finden, mit dem eine absolute Mehrheit einverstanden wäre. $I_U$ enthält sowohl die ``Approvals'' von $X$ Wählern als auch von $X$ Nicht-Wählern. Selbst $|I_U \setminus I_X|$ ist eine absolute Mehrheit der Wähler und damit entscheidungsfähig. Wenn nun also $X$ die Wahl gewinnt, lässt sich den Wählern mangelnde Kompromissbereitschaft vorwerfen. Selbst die Wähler die $X$ nicht gewählt haben, hätten durch mehr Kompromissbereitschaft die Wahl von $X$ verhindern können. Es folgt ein Widerspruch zur Annahme ``kompromissfähig''.
+\end{proof}
+
+Es handelt sich also um ein soziales Problem welches sich nicht durch ein mathematisches Verfahren lösen lässt. Falls $X$ gewinnt gilt dennoch: $X$ war eindeutig der Kandidat mit dem die größte Schnittmenge der Wähler einverstanden war.
+\newline
+
+Des Weiteren ist Approval Voting ein Verfahren, bei dem strategische Unehrlichkeit der Wähler nicht erfolgreich sein kann \cite{spektrum}.
+
+Zusätzlich erfüllt Approval Voting das Condorcet Gewinner Kriterium.
+\begin{proof}
+Sei $X$ ein Condorcet Gewinner. $X$ verliert keinen Zweikampf mit jedem anderen Kandidaten. Es gilt $ \forall A \in Kandidaten$ im Zweikampf $X \succeq A$. Damit erhält $X$ auch mindestens so viele Erstplatzierungen wie $A$. $X$ erhält damit mindestens so viele Kreuzchen wie $A$. Wenn $X$ mehr Stimmen als $A$ erhält gilt demnach im Endergebnis $ X \succ A$. Ansonsten gibt es ein Unentschieden bei dem $X$ und $A$ sich den ersten Platz teilen.
+\end{proof}
+
+Das Approval Voting erweist sich also in jeder Hinsicht als faires und demokratisches Wahlsystem.
+
+\section{Zusammenfassung}
+\begin{quote}\textit{
+Die Aufgabe der Mathematik besteht darin, alle erwünschten Eigenschaften eines Wahlverfahrens aufzulisten und die Grenzen des Machbaren aufzuzeigen. Aber nach einem sprichwörtlich gewordenen Wort von François de Fénelon (1651-1715) "genügt es nicht, die Wahrheit zu zeigen, man muss sie auch liebenswert darstellen". \cite{spektrum}
+}
+\end{quote}
+
+Es ist erstaunlich, dass die Mathematik zeigen kann, dass sich kein perfektes demokratisches Wahlsystem finden lässt. Ein gutes Wahlsystem wurde gefunden, indem die Wähler bei der Möglichkeit ihre Meinung zu äußern eingegrenzt wurden. Es zeigt sich, dass sich wünschenswerte Eigenschaften eines demokratischen Prozesses klar formulieren lassen. Mangelnde Kompromissbereitschaft und Unehrlichkeit der Wähler ist jedoch ein ethisches Problem, bei dem naturgemäß jeder mathematische Ansatz versagt.
+
+\newpage
+
+%----------------------------------
+% References
+%----------------------------------
+%\bibliographystyle{alpha}  % try `plain' or 'abbrv' instead of 'alpha'
+\bibliographystyle{IEEEtran} % IEEE cite fuck yeah
+\bibliography{paper} % references are in the file "paper.bib"
+\end{document}
